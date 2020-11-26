@@ -1,0 +1,15 @@
+{
+  "name": "knight",
+  "version": "1.0.0",
+  "description": "Игра Knight",
+  "main": "./layout/assets/js/main.js",
+  "scripts": {
+    "w": "webpack -w"
+  },
+  "author": "Лазо Константин",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "webpack": "^5.4.0"
+  }
+}
