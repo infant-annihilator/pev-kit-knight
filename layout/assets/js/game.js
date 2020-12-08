@@ -15,12 +15,12 @@ import { Pause } from "./mechanics/pause";
 /**
  * Главный класс игры
  * Объединяет между собой все модули
+ * В парметрах ожидаем объект с настройками
+ * window.innerWidth и innerHeight передают размер экрана
  */
 export class Game 
 {
-    // ожидаем объект с настройками, но он не обязательный и может быть пустым
-    // window.innerWidth и innerHeight передают размер экрана
-    constructor({width = 1240, height = window.innerHeight} = {})
+    constructor({width = window.innerWidth, height = window.innerHeight} = {})
     {
         this.isPaused = false;
 
