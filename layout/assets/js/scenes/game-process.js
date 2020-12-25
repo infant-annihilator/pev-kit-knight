@@ -1,8 +1,6 @@
 import { Scene } from '../abstract-main/scene';
 
-import { Elf } from '../characters/elf';
-import { Greench } from '../characters/greench';
-import { Dog } from '../characters/dog';
+import { Enemy } from '../characters/_enemy';
 
 export class GameProcess extends Scene
 {
@@ -19,18 +17,16 @@ export class GameProcess extends Scene
             this.player.y = this.screen.height - 200;
             this.player.y0 = this.screen.height - 200;
 
-        this.enemies = {
-            'elf': new Elf(this.game),
-            'greench': new Greench(this.game),
-            'dog': new Dog(this.game)
-        }
+        this.enemies = this.game.enemies;
 
         // определение начальных точек для врагов
         // если враг низкий (напимер, собака), тогда он находится ближе к земле
+        let distance = 0
         for(let enemy in this.enemies)
         {
             enemy = this.enemies[enemy];
-            enemy.x = this.screen.width + 100;
+            distance += enemy.width;
+            enemy.x = this.screen.width + 100 + distance;
             enemy.y = this.screen.height - 200;
 
             if(enemy.height > 100)
@@ -54,7 +50,9 @@ export class GameProcess extends Scene
 
     }
 
-    // onload
+    /**
+     * window.onload
+     */
     init()
     {
         this.hud.init();
@@ -69,23 +67,24 @@ export class GameProcess extends Scene
      */
     render(time)
     {
-        this.player.regen(time)
+        this.player.regen(time);
         this.hud.render();
 
         this.update(time);
 
-        let ctx = this.screen.context;
-        ctx.clearRect(0, 0, this.screen.width, this.screen.height);
+        this.screen.clearRect();
 
         this.moving();
         this.enemyMove();
 
         this.player.init()
+        this.player.useSkill(time);
+
         for(let enemy in this.enemies)
         {
             enemy = this.enemies[enemy];
-            enemy.init()
-            enemy.attack(time)
+            enemy.init(time)
+            enemy.attack(time)            
         }
     }
 
@@ -140,8 +139,6 @@ export class GameProcess extends Scene
                 enemy.direction = 'right'; 
                 enemy.x += enemy.step;
             }
-    
-            
         }
     }
 

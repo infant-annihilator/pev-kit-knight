@@ -19,6 +19,7 @@ export class Dog extends Enemy
 
         this.rightWalkImg = 'dog';
         this.leftWalkImg = 'dog_reverse';
+        this.deathImg = 'dog';
         this.attackRightImg = 'dog';
         this.attackLeftImg = 'dog_reverse';
 

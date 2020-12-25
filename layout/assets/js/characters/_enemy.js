@@ -19,7 +19,16 @@ export class Enemy extends Character
 
         // интервал между атаками
         this.intervalTimer = 0;
+        
         this.attackInterval = 1000;
+
+        // интервал между атаками
+        this.intervalDeathTimer = 0;
+        this.deathInterval = 1000;
+
+        this.check = false;
+
+        // this.hitCheck = 0;
     }
 
     /**
@@ -37,7 +46,7 @@ export class Enemy extends Character
         }
     }
 
-    init()
+    init(time)
     {
         var rightWalkImg = this.rightWalkImg,
             leftWalkImg = this.leftWalkImg,
@@ -56,7 +65,69 @@ export class Enemy extends Character
             this.screen.fillRect(this.healthColor, healthX, healthY, this.health, this.healthHeight);
             this.screen.drawImage(x, y, leftWalkImg, this.width, this.height);
         }
+
+        this.death(time);
         
+    }
+
+    /**
+     * Получает удар
+     * @param {int} damage Урон, который получает персонаж
+     */
+    hit(damage)
+    {
+        // if(this.hitCheck == 0)
+        // {
+            this.health -= damage;
+            if (this.health < 0)
+            {
+                this.health = 0;
+            }
+
+            // this.player.hitCheck = true;
+        // }
+    }
+
+    /**
+     * "Смерть" врага
+     * Вся его анимация меняется на смерть, позиция фиксируется
+     */
+    destruct(time)
+    {
+        this.rightWalkImg = this.deathImg;
+        this.leftWalkImg = this.deathImg; 
+        this.leftWalkImg = this.deathImg; 
+        this.attackRightImg = this.deathImg; 
+        this.attackLeftImg = this.deathImg;
+        this.damage = 0;
+
+        // console.log(time)
+        if(this.intervalDeathTimer == 0)
+        {
+            this.intervalDeathTimer = time
+        }
+        if(this.intervalDeathTimer != 0 && (time - this.intervalDeathTimer) > this.deathInterval)
+        {
+            this.x = undefined; // враг пропадает с карты
+        }
+    }
+
+    /**
+     * Смерть персонажа
+     */
+    death(time)
+    {
+        if (this.health == 0)
+        {
+            this.screen.drawImage(this.x, this.y, this.deathImg, this.width, this.height);
+            this.destruct(time);
+
+            if(!this.check)
+            {
+                this.player.kills += 1;
+                this.check = true;
+            }
+        }
     }
     
     /**
@@ -92,11 +163,8 @@ export class Enemy extends Character
                     this.screen.drawImage(x, y, attackLeftImg, this.width, this.height);
                 }
 
-                this.player.health -= this.damage;
-                if(this.player.health < 0)
-                {
-                    this.player.health = 0;
-                }
+                this.player.hit(this.damage);
+                
             }
             
             this.intervalTimer = 0;

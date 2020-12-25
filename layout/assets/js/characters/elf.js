@@ -17,6 +17,7 @@ export class Elf extends Enemy
 
         this.rightWalkImg = 'elf';
         this.leftWalkImg = 'elf_reverse';
+        this.deathImg = 'elf_death_right';
         this.attackRightImg = 'elf_attack_right';
         this.attackLeftImg = 'elf_attack_left';
 

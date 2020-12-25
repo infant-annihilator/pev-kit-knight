@@ -17,6 +17,7 @@ export class Greench extends Enemy
 
         this.rightWalkImg = 'greench';
         this.leftWalkImg = 'greench_reverse';
+        this.deathImg = 'greench_death_right';
         this.attackRightImg = 'greench_attack_right';
         this.attackLeftImg = 'greench_attack_left';
 

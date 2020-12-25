@@ -12,7 +12,7 @@ export class HUD
         this.divClasses = {
             username: 'user-info',
             health: 'panel-xp',
-            magic: 'panel-mp',
+            mana: 'panel-mp',
             timer: 'timer',
             kills: 'kills'
         }
@@ -24,6 +24,10 @@ export class HUD
         // ширина полоски здоровья
         this.health.style.width = '200px';
         this.healthFirstWidth = parseInt(this.health.style.width);
+
+        // ширина полоски маны
+        this.mana.style.width = '176px';
+        this.manaFirstWidth = parseInt(this.mana.style.width);
 
         // таймер
         this.startTime;
@@ -41,7 +45,7 @@ export class HUD
     */
     get username() { return this.divClasses.username };
     get health() { return this.divClasses.health };
-    get magic() { return this.divClasses.magic };
+    get mana() { return this.divClasses.mana };
     get timer() { return this.divClasses.timer };
     get kills() { return this.divClasses.kills };
 
@@ -55,6 +59,8 @@ export class HUD
     render()
     {
         this.setHealth();
+        this.setMana();
+        this.setKills();
     }
 
     setUsername()
@@ -72,6 +78,37 @@ export class HUD
 
         let percent = (this.healthFirstWidth / 100)
         this.health.style.width = this.player.health * percent + 'px';
+    }
+
+    /**
+     * Уменьшение ширины полоски маны в зависимости от количества маны
+     */
+    setMana()
+    {
+        let manaN = document.querySelector('.' + this.mana.className + ' span')
+        manaN.innerText = this.player.mana;
+
+        let percent = (this.manaFirstWidth / 100)
+        this.mana.style.width = this.player.mana * percent + 'px';
+    }
+
+    /**
+     * Изменение счётчика убийств в зависимости от this.player.kills
+     */
+    setKills()
+    {
+        let kills = document.querySelector('.' + this.kills.className)
+        let killsInnerText = kills.innerText.split(': ');
+        kills.innerText = killsInnerText[0] + ': ' + this.player.kills
+    }
+
+    /**
+     * Эффект для используемого навыка на панели
+     */
+    setSkill()
+    {
+        let skill = document.querySelector('.' + this.skill.className)
+
     }
 
     setTimer()

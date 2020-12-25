@@ -1,3 +1,5 @@
+import { Enemy } from "../characters/_enemy";
+
 /**
  * Абстрактный класс персонажа
  * @param {Object} game - класс игры 
@@ -40,8 +42,9 @@ export class Character
     /**
      * 
      */
-    init()
+    init(time)
     {
+
         var rightWalkImg = this.rightWalkImg,
             leftWalkImg = this.leftWalkImg,
             direction = this.direction,
@@ -60,8 +63,35 @@ export class Character
             this.screen.drawImage(x, y, leftWalkImg, this.width, this.height);
             // ctx.restore();
         }
+
+        this.death(time)
     }
 
+    /**
+     * Смерть персонажа
+     */
+    death()
+    {
+        if (this.health == 0)
+        {
+            this.screen.clearRect();
+            this.screen.drawImage(this.x, this.y, this.deathImg, this.width, this.height);
+            this.afterDeath()
+        }
+
+    }
+
+    /**
+     * Что происходит после смерти
+     */
+    afterDeath()
+    {
+
+    }
+
+    /**
+     * Движение вправо
+     */
     moveRight()
     {
         var step = this.step;
@@ -70,6 +100,9 @@ export class Character
         this.init();
     }
 
+    /**
+     * Движение влево
+     */
     moveLeft()
     {
         var step = this.step;
@@ -81,5 +114,17 @@ export class Character
             this.y = this.y0;
         }
         this.x -= step;
+    }
+
+    /**
+     * Получает удар
+     */
+    hit()
+    {
+        // this.health -= enemy.hit;
+        if (this.health < 0)
+        {
+            this.health = 0;
+        }
     }
 }

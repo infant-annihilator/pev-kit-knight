@@ -7,10 +7,16 @@ import { Scene } from './abstract-main/scene';
     import { GameProcess } from "./scenes/game-process";
 import { Character } from './abstract-main/character';
     import { Player } from './characters/player';
-    import { Elf } from './characters/elf';
+import { Skill } from './abstract-main/skill';
 import { DOMElement } from './dom/element';
 import { Text } from './dom/text';
 import { Pause } from "./mechanics/pause";
+import { Attack1 } from './skills/attack1';
+import { Block } from './skills/block';
+import { Enemy } from './characters/_enemy';
+    import { Elf } from './characters/elf';
+    import { Greench } from './characters/greench';
+    import { Dog } from './characters/dog';
 
 /**
  * Главный класс игры
@@ -54,8 +60,13 @@ export class Game
             dog_reverse: '../character animation/enemies/dog/sprites/run/Run_reverse.png'
         });
         this.control = new ControlState();
-            this.player = new Player(this);
-            this.elf = new Elf(this);
+            
+        this.player = new Player(this);
+        this.enemies = {
+            'elf': new Elf(this),
+            'greench': new Greench(this),
+            'dog': new Dog(this)
+        }
 
         this.text = new Text;
         this.dom = new DOMElement;
@@ -68,6 +79,11 @@ export class Game
         };
         this.currentScene = this.scenes.menu; // устанавливаем текущую сцену
         this.currentScene.init();
+
+        this.skills = {
+            attack1: new Attack1(this),
+            block: new Block(this),
+        }
 
         this.pause = new Pause(this);
     }
