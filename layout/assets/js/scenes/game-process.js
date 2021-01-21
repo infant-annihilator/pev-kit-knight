@@ -61,6 +61,11 @@ export class GameProcess extends Scene
      */
     render(time)
     {
+        if(this.player.health == 0)
+        {
+            this.finish(Scene.END);
+        }
+
         this.player.regen(time);
         this.hud.render();
 
@@ -71,7 +76,7 @@ export class GameProcess extends Scene
         this.moving();
         this.enemyMove();
 
-        this.player.init()
+        this.player.init();
         this.player.useSkill(time);
 
         for(let enemy in this.enemies)
@@ -183,8 +188,7 @@ export class GameProcess extends Scene
                 // завершение игры по достижению конца поля
                 if(this.player.x > this.screen.width)
                 {
-                    alert('победа!')
-                    // self.finish(Scene.START_GAME);
+                    this.finish(Scene.END);
                 }
             } 
             else if(this.control.left) 

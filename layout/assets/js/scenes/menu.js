@@ -26,8 +26,6 @@ export class Menu extends Scene
      */
     render(time)
     {
-        // this.game.screen.drawSprite(this.lightBringer);
-        // super.render(time)
         this.validateForm()
     }
 
@@ -54,7 +52,7 @@ export class Menu extends Scene
                 submit[0].style.background = 'green';
                 submit[0].onclick = function(e)
                 {
-                    e.preventDefault()
+                    e.preventDefault();
                     self.scene.hidden = 'true';
                     self.finish(Scene.START_GAME);
                     self.player.nickname = form[0].value;

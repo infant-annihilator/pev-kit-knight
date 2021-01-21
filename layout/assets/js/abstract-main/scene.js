@@ -27,12 +27,9 @@ export class Scene
     }
 
     // статус сцены (различные условия сцен)
-    static get WORKING() { return 'WORKING'; }
-    static get LOADED() { return 'MENU'; }
+    static get MENU() { return 'MENU'; }
     static get START_GAME() { return 'START_GAME'; }
-    static get GAME_OVER() { return 'GAME_OVER'; }
-    static get GAME_WIN() { return 'GAME_WIN'; }
-    static get FINISHED() { return 'FINISHED'; }
+    static get END() { return 'END'; }
 
     // запуск или перезапуск сцены
     init()
@@ -40,6 +37,10 @@ export class Scene
         this.status = this.constructor.WORKING; // определяет, что сцена активна, либо переключить на следующую
     }
 
+    /**
+     * Завершает текущую сцену, переключая на status
+     * @param {object} status Сцена, на которую переключаем 
+     */
     finish(status)
     {
         this.status = status;

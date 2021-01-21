@@ -188,8 +188,6 @@ export class Player extends Character
      */
     hit(damage)
     {
-        // console.log(this.mana < 5)
-
         if(!this.game.control.two || this.mana <= 5)
         {
             this.health -= damage;
@@ -249,11 +247,5 @@ export class Player extends Character
             }
 
         }
-    }
-
-    afterDeath()
-    {
-        this.game.isPaused = true;
-        $('#pause').text('Вы погибли.')
     }
 }

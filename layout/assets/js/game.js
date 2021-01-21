@@ -5,6 +5,7 @@ import { ControlState } from './mechanics/control-state';
 import { Scene } from './abstract-main/scene';
     import { Menu } from "./scenes/menu";
     import { GameProcess } from "./scenes/game-process";
+    import { End } from './scenes/end';
 import { Character } from './abstract-main/character';
     import { Player } from './characters/player';
 import { Skill } from './abstract-main/skill';
@@ -82,7 +83,8 @@ export class Game
         this.textAnimation = new TextAnimation(this);
         this.scenes = {
             menu: new Menu(this),
-            gameProcess: new GameProcess(this)
+            gameProcess: new GameProcess(this),
+            end: new End(this)
         };
         this.currentScene = this.scenes.menu; // устанавливаем текущую сцену
         this.currentScene.init();
@@ -109,6 +111,9 @@ export class Game
 
             case Scene.START_GAME:
                 return this.scenes.gameProcess;
+
+            case Scene.END:
+                return this.scenes.end;
 
             default:
                 return this.scenes.menu;

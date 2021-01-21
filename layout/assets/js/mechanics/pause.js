@@ -11,7 +11,7 @@ export class Pause
 
         const self = this;
 
-        // пауза по нажатию на esc
+        // отмена паузы по нажатию на esc
         window.onkeydown = function(e) {
             const key = e.keyCode
           
