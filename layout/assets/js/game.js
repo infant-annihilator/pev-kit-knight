@@ -64,8 +64,15 @@ export class Game
         this.player = new Player(this);
         this.enemies = {
             'elf': new Elf(this),
+            'elf2': new Elf(this),
+            'elf3': new Elf(this),
             'greench': new Greench(this),
-            'dog': new Dog(this)
+            'greench2': new Greench(this),
+            'greench3': new Greench(this),
+            'dog': new Dog(this),
+            'dog2': new Dog(this),
+            'dog3': new Dog(this),
+            'dog4': new Dog(this)
         }
 
         this.text = new Text;
@@ -138,5 +145,16 @@ export class Game
     run()
     {
         requestAnimationFrame(time => this.frame(time))
+    }
+
+    /**
+     * Возвращает целочисленное рандомное число от min до max
+     * @param {integer} min 
+     * @param {integer} max 
+     */
+    randomInteger(min, max) 
+    {
+        let rand = min + Math.random() * (max + 1 - min);
+        return Math.floor(rand);
     }
 }

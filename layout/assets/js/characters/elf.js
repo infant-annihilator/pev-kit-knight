@@ -22,5 +22,13 @@ export class Elf extends Enemy
         this.attackLeftImg = 'elf_attack_left';
 
         this.step = 2; //скорость передвижения и длинна шага
+
+        // начальные значение, которые возвращаются после спауна
+        this.damage0 = this.damage
+        this.health0 = this.health;
+        this.rightWalkImg0 = this.rightWalkImg;
+        this.leftWalkImg0 = this.leftWalkImg;
+        this.attackRightImg0 = this.attackRightImg;
+        this.attackLeftImg0 = this.attackLeftImg;
     }
 }

@@ -1,5 +1,6 @@
 import { Scene } from '../abstract-main/scene';
-
+import { Dog } from '../characters/dog';
+import { Greench } from '../characters/greench';
 import { Enemy } from '../characters/_enemy';
 
 export class GameProcess extends Scene
@@ -18,27 +19,7 @@ export class GameProcess extends Scene
             this.player.y0 = this.screen.height - 200;
 
         this.enemies = this.game.enemies;
-
-        // определение начальных точек для врагов
-        // если враг низкий (напимер, собака), тогда он находится ближе к земле
-        let distance = 0
-        for(let enemy in this.enemies)
-        {
-            enemy = this.enemies[enemy];
-            distance += enemy.width;
-            enemy.x = this.screen.width + 100 + distance;
-            enemy.y = this.screen.height - 200;
-
-            if(enemy.height > 100)
-            {
-                enemy.y0 = this.screen.height - 200;
-            }
-            else
-            {
-                enemy.y0 = this.screen.height - 120;
-            }
-
-        }
+        this.enemiesSpawn();
 
         this.sceneWidth = parseInt(this.screen.width * 6.3);
         this.background = {
@@ -48,6 +29,19 @@ export class GameProcess extends Scene
 
         this.x = 0;
 
+    }
+
+    /**
+     * определение начальных точек для врагов
+     * если враг низкий (напимер, собака), тогда он находится ближе к земле
+     */
+    enemiesSpawn()
+    {
+        for(let enemy in this.enemies)
+        {
+            enemy = this.enemies[enemy];
+            enemy.spawn();
+        }
     }
 
     /**
@@ -83,8 +77,18 @@ export class GameProcess extends Scene
         for(let enemy in this.enemies)
         {
             enemy = this.enemies[enemy];
-            enemy.init(time)
-            enemy.attack(time)            
+
+            // если местоположение врага не определено, то он спаунится заново
+            if (enemy.x == undefined)
+            {
+                enemy.spawn();
+                // enemy.x = this.game.randomInteger(this.screen.width, this.screen.width * 2);
+            }
+
+            enemy.init(time);
+            enemy.attack(time);
+
+            // console.log(enemy.rightWalkImg + '  ' + enemy.x)
         }
     }
 

@@ -66,9 +66,4 @@ export class Menu extends Scene
             this.style.background = '';
         }
     }
-
-    getNickname()
-    {
-
-    }
 }

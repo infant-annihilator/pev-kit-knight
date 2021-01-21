@@ -3,6 +3,7 @@ import { Enemy } from "../characters/_enemy";
 /**
  * Абстрактный класс персонажа
  * @param {Object} game - класс игры 
+ * @param {Boolean} isDead - мёртв или жив
  * @param {Integer} x - начальная координата по x 
  * @param {Integer} y - начальная координата по y
  * @param {Integer} width - ширина персонажа 
@@ -24,6 +25,8 @@ export class Character
     {
         this.game = game;
             this.screen = this.game.screen;
+
+
         this.x = x;
         this.y = y;
         this.y0 = y;

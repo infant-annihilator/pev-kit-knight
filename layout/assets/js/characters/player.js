@@ -188,7 +188,7 @@ export class Player extends Character
      */
     hit(damage)
     {
-        console.log(this.mana < 5)
+        // console.log(this.mana < 5)
 
         if(!this.game.control.two || this.mana <= 5)
         {

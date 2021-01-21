@@ -8,6 +8,7 @@ export class Enemy extends Character
     constructor(game, x, y)
     {
         super(game, x, y)
+
         this.y0 = y;
         this.direction = 'left';
         
@@ -29,6 +30,36 @@ export class Enemy extends Character
         this.check = false;
 
         // this.hitCheck = 0;
+    }
+
+    /**
+     * Спаун врага заново
+     */
+    spawn()
+    {
+        this.check = false;
+        this.health = this.health0;
+        this.isDead = false;
+        this.damage = this.damage0;
+
+        // добавить таймер, иначе анимация смерти длится милисекунду!
+        this.rightWalkImg = this.rightWalkImg0;
+        this.leftWalkImg = this.leftWalkImg0; 
+        this.attackRightImg = this.attackRightImg0; 
+        this.attackLeftImg = this.attackLeftImg0;
+
+        // спауним врагов в рандомном месте справа
+        this.x = this.game.randomInteger(this.screen.width - 10, this.screen.width * 2);
+        this.y = this.screen.height - 200;
+
+        if(this.height > 100)
+        {
+            this.y0 = this.screen.height - 200;
+        }
+        else
+        {
+            this.y0 = this.screen.height - 120;
+        }
     }
 
     /**
@@ -66,8 +97,7 @@ export class Enemy extends Character
             this.screen.drawImage(x, y, leftWalkImg, this.width, this.height);
         }
 
-        this.death(time);
-        
+        this.death(time);        
     }
 
     /**
@@ -96,12 +126,10 @@ export class Enemy extends Character
     {
         this.rightWalkImg = this.deathImg;
         this.leftWalkImg = this.deathImg; 
-        this.leftWalkImg = this.deathImg; 
         this.attackRightImg = this.deathImg; 
         this.attackLeftImg = this.deathImg;
         this.damage = 0;
 
-        // console.log(time)
         if(this.intervalDeathTimer == 0)
         {
             this.intervalDeathTimer = time
@@ -119,6 +147,7 @@ export class Enemy extends Character
     {
         if (this.health == 0)
         {
+            this.isDead = true;
             this.screen.drawImage(this.x, this.y, this.deathImg, this.width, this.height);
             this.destruct(time);
 

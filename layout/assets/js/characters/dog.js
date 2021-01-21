@@ -12,6 +12,7 @@ export class Dog extends Enemy
         this.height = 55;
 
         this.health = 15;
+        this.health0 = this.health;
         this.damage = 2;
         this.damageArea = 50;
 
@@ -24,6 +25,14 @@ export class Dog extends Enemy
         this.attackLeftImg = 'dog_reverse';
 
         this.step = 3; //скорость передвижения и длинна шага
+
+        // начальные значение, которые возвращаются после спауна
+        this.damage0 = this.damage
+        this.health0 = this.health;
+        this.rightWalkImg0 = this.rightWalkImg;
+        this.leftWalkImg0 = this.leftWalkImg;
+        this.attackRightImg0 = this.attackRightImg;
+        this.attackLeftImg0 = this.attackLeftImg;
     }
 
      /**
