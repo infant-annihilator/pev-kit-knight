@@ -32,7 +32,7 @@ CREATE TABLE `ranking` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `score` int(11) NOT NULL,
-  `time` int(11) NOT NULL
+  `time` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

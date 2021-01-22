@@ -61,6 +61,11 @@ export class GameProcess extends Scene
      */
     render(time)
     {
+        if(this.player.respawnCheck == 1)
+        {
+            this.playerRespawn()
+        }
+
         if(this.player.health == 0)
         {
             this.finish(Scene.END);
@@ -321,6 +326,29 @@ export class GameProcess extends Scene
             // синусоида, первое число регулирует внутренний угол, второе - выпуклость
             return Math.sin(x / 60) * bend;
         }
+    }
+
+    /**
+     * Если игрок зареспаунился, то сбрасываем сцену в начальное состояние
+     */
+    playerRespawn()
+    {
+        this.player.x = 10;
+        this.player.y = this.screen.height - 200;
+        this.player.y0 = this.screen.height - 200;
+
+        this.enemiesSpawn();
+
+        this.background = {
+            sceneTag: 'screen-game',
+            x: this.screen.width / 2
+        };
+        this.scene.style.backgroundPosition = '0%';
+
+        this.x = 0;
+
+        // так как респаун уже совершён
+        this.player.respawnCheck = 0;
     }
 
 }

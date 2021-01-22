@@ -9,19 +9,29 @@ export class Player extends Character
     constructor(game, nickname, x, y)
     {
         super(game, x, y)
-        this.direction = 'right';
+        
+        // потом эти параметры пеедадутся в таблицу рекордов
         this.nickname = nickname;
+        this.kills = 0;
+        // this.time = this.game.hud.timer;
 
         // this.skill = this.game.skill; // класс навыков игрока
         // this.skills = this.game.skills;
 
+        this.direction = 'right';
         this.y0 = y;
+        this.x0 = x;
         this.width = 100;
         this.height = 115;
         this.standing = true;
+        
+        // изначальные здоровье и мана, неменяемые
+        this.health0 = 100;
+        this.mana0 = 100;
 
-        this.health = 100;
-        this.mana = 100;
+        // изменяемые здоровье и мана
+        this.health = this.health0;
+        this.mana = this.mana0;
 
         this.damage = 15;
         this.damageArea = 50;
@@ -29,7 +39,6 @@ export class Player extends Character
         // применён ли щит
         this.shield = false;
 
-        this.kills = 0;
         this.damageArea = 100;
 
         // регенерация
@@ -63,6 +72,9 @@ export class Player extends Character
         this.intervalManaTimer = 0;
         this.intervalHealthTimer = 0;
         this.intervalAttackTimer = 0;
+
+        this.respawnCheck = 0; // зареспанился ли (для активных сцен)
+        this.respawnEndCheck = 0; // зареспанился ли (для обновления сцены с рекордами)
     }
 
     /**
@@ -77,7 +89,6 @@ export class Player extends Character
             skill = this.game.skills[skill];
             skill.use(time);
         }
-
         this.attack();
     }
 
@@ -247,5 +258,19 @@ export class Player extends Character
             }
 
         }
+    }
+
+    /**
+     * Респаун, если нажали "Начать игру заново"
+     */
+    respawn()
+    {
+        this.health = this.health0;
+        this.mana = this.mana0;
+        this.kills = 0;
+        this.direction = 'right';
+        this.respawnCheck = 1;
+        this.respawnEndCheck = 1;
+        this.game.hud.resetTimer();
     }
 }

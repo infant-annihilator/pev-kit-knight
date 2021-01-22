@@ -9,6 +9,8 @@ export class HUD
             this.player = game.player;
             this.dom = this.game.dom;
 
+        this.time = ''; // время в формате "мм:сс"
+
         this.divClasses = {
             username: 'user-info',
             health: 'panel-xp',
@@ -140,8 +142,9 @@ export class HUD
 
             minutes = (minutes < 10) ? "0" + minutes : minutes;
             seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-            self.timer.innerHTML = timerArray[0] + ': ' + minutes + ':' + seconds
+            
+            self.time = minutes + ':' + seconds;
+            self.timer.innerHTML = timerArray[0] + ': ' + minutes + ':' + seconds;
 
         }
 
@@ -168,6 +171,7 @@ export class HUD
     resetTimer()
     {
         clearInterval(this.tInterval);
+        this.time = '';
         this.savedTime = 0;
         this.difference = 0;
         this.paused = 0;

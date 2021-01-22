@@ -1,6 +1,6 @@
 <?php
 
-$conn = new PDO('mysql:host=localhost;dbname=ajax;charset=utf8', 'root', 'password', [
+$conn = new PDO('mysql:host=localhost;dbname=ranking;charset=utf8', 'root', 'root', [
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 ]);
 
@@ -17,3 +17,4 @@ $insert->execute([
 
 $select = $conn->query('SELECT * FROM ranking');
 echo json_encode($select->fetchAll());
+echo '___________________________________________'.$username;
